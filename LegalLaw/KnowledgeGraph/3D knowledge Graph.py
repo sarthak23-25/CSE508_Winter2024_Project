@@ -1,9 +1,11 @@
+import pandas as pd
 import numpy as np
 import networkx as nx
 import plotly.graph_objs as go
 import streamlit as st
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import re
 
 def calculate_similarity(documents):
     # Create TF-IDF vectorizer
@@ -17,18 +19,22 @@ def calculate_similarity(documents):
 def main():
     st.title("3D Knowledge Graph")
 
-    # Sample documents (you should replace this with your data)
-    documents = [
-        "Loving these vintage springs on my vintage strat. T",
-        "Works great as a guitar bench mat. Not rugged enough for abuse but if you take care of it",
-        "kinda flimsy but oit does the job",
-        "Great price and good quality.  It didn't quite match the radius of my sound hole but it was close enough.",
-        "Loving these vintage springs on my vintage strat. They have a good tension and great stability.",
-        "Great price and good quality.  It didn't quite match the radius of my sound hole but it was close enough.",
-        "Great nylon strings, just as expected. They worked just fine on my daughter's mini classica ",
-        "kinda flimsy but oit does the job",
-        "You really cant beat it for the price, however, I would not use it for really heavy lights."
-    ]
+    # Read data from CSV
+    df = pd.read_csv("top_10.csv")
+    texts = df["text"].tolist()
+    names = df["name"].tolist()
+
+    # Process text data (take only 50 words from each text)
+    documents = []
+    node_names = []  # Store node names
+    for text, name in zip(texts, names):
+        # Use regex to split text into words
+        words = re.findall(r'\b\w+\b', text)
+        # Take first 50 words
+        selected_words = words[:50]
+        document = " ".join(selected_words)
+        documents.append(document)
+        node_names.append(name)
 
     # Calculate cosine similarity between all pairs of documents
     similarity_matrix = calculate_similarity(documents)
@@ -47,7 +53,8 @@ def main():
     for i, idx in enumerate(ranked_indices):
         document = documents[idx]
         similarity = avg_similarities[idx]
-        G.add_node(i, label=document, avg_similarity=similarity, rank=i+1)
+        name = node_names[idx]  # Get node name
+        G.add_node(name, label=document, avg_similarity=similarity, rank=i+1)
         
         # Store top 3 results
         if i < 3:
@@ -58,7 +65,9 @@ def main():
         for j in range(len(documents)):
             if i != j:
                 similarity = similarity_matrix[i][j]
-                G.add_edge(i, j, weight=similarity)
+                source_name = node_names[i]
+                target_name = node_names[j]
+                G.add_edge(source_name, target_name, weight=similarity)
 
     # Position nodes using Fruchterman-Reingold force-directed algorithm
     pos = nx.spring_layout(G, dim=3)
@@ -91,7 +100,7 @@ def main():
         node_x.append(x)
         node_y.append(y)
         node_z.append(z)
-        node_text.append(f"Rank: {G.nodes[node]['rank']}\n\n{G.nodes[node]['label']}")
+        node_text.append(f"Rank: {G.nodes[node]['rank']} \n\n {node}")
         rank = G.nodes[node]['rank']
         if rank == 1:
             node_color.append('red')
@@ -149,9 +158,8 @@ def main():
                                                   method='animate',
                                                   args=[[None], dict(frame=dict(duration=0, redraw=True), mode='immediate', transition=dict(duration=0))])])])
 
-# Display the animated graph
+    # Display the animated graph
     st.plotly_chart(fig)
-    
 
     # Display top 3 results
     st.subheader("Top 3 results are:")
