@@ -23,7 +23,7 @@ def main():
         # Add the user input and bot output to the chat log
         st.session_state.chat_log.append({"User": user_input, "Bot": bot_output})
         # Clear the input box
-        st.text_input("You:", value="", key="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")
+        st.text_input("You:", value="", key="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")  #Expired Key (You need to create from your side)
 
     # Display the chat log
     for exchange in st.session_state.chat_log:
