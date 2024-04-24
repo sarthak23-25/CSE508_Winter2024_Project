@@ -61,4 +61,5 @@ Legal Lens Group No. 44 aims to revolutionize natural language processing tasks 
 2. [Dependency Learning for Legal Judgment Prediction](https://arxiv.org/abs/2112.06370) - Y. Huang et al.
 3. [Named Entity Recognition in Indian court judgments](https://arxiv.org/abs/2211.03442) - P. Kalamkar et al.
 4. [SemEval 2023 Task 6: LegalEval - Understanding Legal Texts](https://arxiv.org/abs/2304.09548) - A. Modi et al.
-[![Legal Lens Demo](https://i.postimg.cc/7b8xZV9H/Untitled-design.gif)](https://postimg.cc/9wb3xysK)
+
+![Untitled design](https://github.com/sarthak23-25/CSE508_Winter2024_Project/assets/144327529/575c41ee-097c-44af-a3f6-19b2478d41e8)
