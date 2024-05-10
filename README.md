@@ -55,6 +55,17 @@ Legal Lens Group No. 44 aims to revolutionize natural language processing tasks 
 4. *Datasets Used:*
    - Indian Penal Code PDFs, Crime PDFs, A1860-45 PDF, 33 Law of Crime, and other legal documents.
    - Government sources such as National Judicial Data Grid (NJDG) & IndianKanoon are utilized for dataset collection and validation.
+   
+## Installation:
+1. Clone the repository:
+```git clone https://github.com/sarthak23-25/CSE508_Winter2024_Project.git```
+```cd chat-with-pdf-doc```
+
+2. Install dependencies:
+```pip install -r requirements.txt```
+
+3. Start the Streamlit app:
+```streamlit run chatbot.py```
 
 ## References:
 1. [Corpus for Automatic Structuring of Legal Documents](https://arxiv.org/abs/2201.13125) - P. Kalamkar et al.
