@@ -59,13 +59,20 @@ Legal Lens Group No. 44 aims to revolutionize natural language processing tasks 
 ## Installation:
 1. Clone the repository:
 ```git clone https://github.com/sarthak23-25/CSE508_Winter2024_Project.git```
-```cd chat-with-pdf-doc```
+```cd LegalLawWebsite/legal```
 
 2. Install dependencies:
 ```pip install -r requirements.txt```
 
 3. Start the Streamlit app:
+```streamlit run 3DKnowledge.py```
+
+4. Start the Streamlit app:
 ```streamlit run chatbot.py```
+
+6. Start the  app server:
+```run server manage.py```
+
 
 ## References:
 1. [Corpus for Automatic Structuring of Legal Documents](https://arxiv.org/abs/2201.13125) - P. Kalamkar et al.
